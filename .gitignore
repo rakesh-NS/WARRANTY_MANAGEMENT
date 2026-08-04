@@ -1,0 +1,51 @@
+# Backend
+backend/target/
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/.idea/
+backend/*.iml
+backend/*.jar
+backend/*.war
+backend/out/
+backend/.DS_Store
+backend/*.log
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.next
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.DS_Store
+frontend/.vscode/
+frontend/.idea/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Misc
+*.log
+.cache/
