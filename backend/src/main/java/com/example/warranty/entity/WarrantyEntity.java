@@ -38,15 +38,18 @@ public class WarrantyEntity {
     @NotBlank
     private String status;
 
+    private String warrantyType;
+
     public WarrantyEntity() {}
 
-    public WarrantyEntity(Long id, ProductEntity product, UserEntity user, LocalDate startDate, LocalDate expiryDate, String status) {
+    public WarrantyEntity(Long id, ProductEntity product, UserEntity user, LocalDate startDate, LocalDate expiryDate, String status, String warrantyType) {
         this.id = id;
         this.product = product;
         this.user = user;
         this.startDate = startDate;
         this.expiryDate = expiryDate;
         this.status = status;
+        this.warrantyType = warrantyType;
     }
 
     public static Builder builder() {
@@ -101,6 +104,14 @@ public class WarrantyEntity {
         this.status = status;
     }
 
+    public String getWarrantyType() {
+        return warrantyType;
+    }
+
+    public void setWarrantyType(String warrantyType) {
+        this.warrantyType = warrantyType;
+    }
+
     public static class Builder {
         private Long id;
         private ProductEntity product;
@@ -108,6 +119,7 @@ public class WarrantyEntity {
         private LocalDate startDate;
         private LocalDate expiryDate;
         private String status;
+        private String warrantyType;
 
         public Builder id(Long id) {
             this.id = id;
@@ -139,8 +151,13 @@ public class WarrantyEntity {
             return this;
         }
 
+        public Builder warrantyType(String warrantyType) {
+            this.warrantyType = warrantyType;
+            return this;
+        }
+
         public WarrantyEntity build() {
-            return new WarrantyEntity(id, product, user, startDate, expiryDate, status);
+            return new WarrantyEntity(id, product, user, startDate, expiryDate, status, warrantyType);
         }
     }
 }

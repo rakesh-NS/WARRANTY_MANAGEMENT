@@ -9,9 +9,10 @@ const RegisterPage = () => {
     email: '',
     password: '',
     phone: '',
-    role: 'USER',
+    role: 'CUSTOMER',
   });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -22,10 +23,12 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setLoading(true);
     try {
       await userService.register(formData);
-      navigate('/login');
+      setSuccess('Account created successfully. Redirecting to login...');
+      setTimeout(() => navigate('/login'), 1200);
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
     } finally {
@@ -39,8 +42,9 @@ const RegisterPage = () => {
         <div className="col-md-6">
           <Card className="shadow">
             <Card.Body className="p-5">
-              <h2 className="text-center mb-4">Register</h2>
+              <h2 className="text-center mb-4">Create account</h2>
               {error && <Alert variant="danger">{error}</Alert>}
+              {success && <Alert variant="success">{success}</Alert>}
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Label>Name</Form.Label>
@@ -49,6 +53,7 @@ const RegisterPage = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    placeholder="John Smith"
                     required
                   />
                 </Form.Group>
@@ -59,6 +64,7 @@ const RegisterPage = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    placeholder="you@example.com"
                     required
                   />
                 </Form.Group>
@@ -69,6 +75,7 @@ const RegisterPage = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
+                    placeholder="At least 6 characters"
                     required
                   />
                 </Form.Group>
@@ -79,6 +86,7 @@ const RegisterPage = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
+                    placeholder="+1 555 123 4567"
                   />
                 </Form.Group>
                 <Button variant="primary" type="submit" className="w-100" disabled={loading}>

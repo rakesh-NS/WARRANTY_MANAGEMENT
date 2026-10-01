@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Spinner, Alert } from 'react-bootstrap';
-import { userService } from '../services/serviceApi';
+import { adminService } from '../services/serviceApi';
 
 const ManageUsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -15,7 +15,10 @@ const ManageUsersPage = () => {
     try {
       setLoading(true);
       setError('');
+      const response = await adminService.getUsers();
+      setUsers(response.data || []);
     } catch (err) {
+      console.error('Failed to load users', err);
       setError('Failed to load users');
     } finally {
       setLoading(false);

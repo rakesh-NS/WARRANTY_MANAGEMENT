@@ -10,4 +10,6 @@ import com.example.warranty.entity.ProductEntity;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     List<ProductEntity> findByProductNameContainingIgnoreCaseOrBrandContainingIgnoreCaseOrModelContainingIgnoreCase(String productName, String brand, String model);
+    boolean existsBySerialNumberIgnoreCase(String serialNumber);
+    List<ProductEntity> findByUserId(Long userId);
 }

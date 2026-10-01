@@ -27,7 +27,7 @@ const ManageClaimsPage = () => {
 
   const handleApprove = async (id) => {
     try {
-      await claimService.updateStatus(id, 'Approved', remarks);
+      await claimService.updateStatus(id, 'APPROVED', remarks);
       fetchClaims();
       setShowModal(false);
       setRemarks('');
@@ -38,7 +38,7 @@ const ManageClaimsPage = () => {
 
   const handleReject = async (id) => {
     try {
-      await claimService.updateStatus(id, 'Rejected', remarks);
+      await claimService.updateStatus(id, 'REJECTED', remarks);
       fetchClaims();
       setShowModal(false);
       setRemarks('');
@@ -65,31 +65,36 @@ const ManageClaimsPage = () => {
           </tr>
         </thead>
         <tbody>
-          {claims.map(c => (
-            <tr key={c.id}>
-              <td>{c.id}</td>
-              <td>{c.productId}</td>
-              <td>{c.issueDescription.substring(0, 50)}...</td>
-              <td>
-                <span className={`badge bg-${
-                  c.status === 'Pending' ? 'warning' :
-                  c.status === 'Approved' ? 'success' :
-                  'danger'
-                }`}>
-                  {c.status}
-                </span>
-              </td>
-              <td>{c.claimDate}</td>
-              <td>
-                {c.status === 'Pending' && (
-                  <>
-                    <button onClick={() => { setSelectedClaim(c); setShowModal(true); }} className="btn btn-sm btn-success me-2">Approve</button>
-                    <button onClick={() => { setSelectedClaim(c); setShowModal(true); }} className="btn btn-sm btn-danger">Reject</button>
-                  </>
-                )}
-              </td>
-            </tr>
-          ))}
+          {claims.map(c => {
+            const normalizedStatus = (c.status || '').toUpperCase();
+            return (
+              <tr key={c.id}>
+                <td>{c.id}</td>
+                <td>{c.productId}</td>
+                <td>{c.issueDescription.substring(0, 50)}...</td>
+                <td>
+                  <span className={`badge bg-${
+                    normalizedStatus === 'PENDING' ? 'warning' :
+                    normalizedStatus === 'APPROVED' ? 'success' :
+                    normalizedStatus === 'REJECTED' ? 'danger' :
+                    normalizedStatus === 'IN_REPAIR' ? 'info' :
+                    'secondary'
+                  }`}>
+                    {c.status}
+                  </span>
+                </td>
+                <td>{c.claimDate}</td>
+                <td>
+                  {normalizedStatus === 'PENDING' && (
+                    <>
+                      <button onClick={() => { setSelectedClaim(c); setShowModal(true); }} className="btn btn-sm btn-success me-2">Approve</button>
+                      <button onClick={() => { setSelectedClaim(c); setShowModal(true); }} className="btn btn-sm btn-danger">Reject</button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
 

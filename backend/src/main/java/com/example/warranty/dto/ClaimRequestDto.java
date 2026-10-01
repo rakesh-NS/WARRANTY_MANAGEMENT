@@ -1,18 +1,19 @@
 package com.example.warranty.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class ClaimRequestDto {
-    @NotNull(message = "Warranty ID is required")
+    private Long productId;
+
     private Long warrantyId;
 
-    @NotNull(message = "Claim date is required")
     private LocalDate claimDate;
+
+    private String issueCategory;
 
     @NotBlank(message = "Issue description is required")
     private String issueDescription;

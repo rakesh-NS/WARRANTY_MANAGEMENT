@@ -1,6 +1,11 @@
+.navbar-dark {
+  background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 45%, #1e40af 100%) !important;
+}
+
 .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.8) !important;
-  transition: color 0.3s ease;
+  color: rgba(255, 255, 255, 0.88) !important;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  font-weight: 500;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
@@ -9,4 +14,17 @@
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.analytics-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.analytics-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(37, 99, 235, 0.08) !important;
+}
+
+.text-sm {
+  font-size: 0.8rem;
 }

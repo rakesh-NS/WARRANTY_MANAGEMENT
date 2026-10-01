@@ -32,6 +32,8 @@ public class ClaimEntity {
     @Column(columnDefinition = "TEXT")
     private String issueDescription;
 
+    private String issueCategory;
+
     @NotBlank
     private String status;
 

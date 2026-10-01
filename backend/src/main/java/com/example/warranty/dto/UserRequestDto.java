@@ -2,7 +2,6 @@ package com.example.warranty.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-
 import lombok.Data;
 
 @Data
@@ -19,6 +18,5 @@ public class UserRequestDto {
 
     private String phone;
 
-    @NotBlank(message = "Role is required")
     private String role;
 }

@@ -1,10 +1,10 @@
 package com.example.warranty.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -27,6 +27,10 @@ public class ProductRequestDto {
     @NotNull(message = "Price is required")
     private BigDecimal price;
 
-    @NotNull(message = "User ID is required")
+    private String category;
+    private String sellerName;
+    private String invoiceNumber;
+    private String description;
+
     private Long userId;
 }

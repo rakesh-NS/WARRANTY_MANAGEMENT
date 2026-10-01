@@ -1,15 +1,24 @@
 import api from './api';
 
+const normalizeEmail = (value) => (typeof value === 'string' ? value.trim().toLowerCase() : value);
+
+const normalizeUserPayload = (data = {}) => ({
+  ...data,
+  email: normalizeEmail(data.email),
+  role: 'CUSTOMER',
+});
+
 export const userService = {
-  register: (data) => api.post('/users/register', data),
-  login: (data) => api.post('/users/login', data),
+  register: (data) => api.post('/users/register', normalizeUserPayload(data)),
+  login: (data) => api.post('/users/login', normalizeUserPayload(data)),
   getProfile: (id) => api.get(`/users/${id}`),
-  updateProfile: (id, data) => api.put(`/users/${id}`, data),
+  updateProfile: (id, data) => api.put(`/users/${id}`, normalizeUserPayload(data)),
 };
 
 export const adminService = {
   login: (data) => api.post('/admin/login', data),
   getDashboard: () => api.get('/admin/dashboard'),
+  getUsers: () => api.get('/admin/users'),
 };
 
 export const productService = {
@@ -32,4 +41,11 @@ export const claimService = {
   getAll: () => api.get('/claims'),
   updateStatus: (id, status, adminRemarks) =>
     api.put(`/claims/${id}?status=${status}&adminRemarks=${adminRemarks || ''}`),
+};
+
+export const repairService = {
+  getAll: () => api.get('/repairs'),
+  create: (data) => api.post('/repairs', data),
+  update: (id, data) => api.put(`/repairs/${id}`, data),
+  getByUserId: (userId) => api.get(`/repairs/user/${userId}`),
 };

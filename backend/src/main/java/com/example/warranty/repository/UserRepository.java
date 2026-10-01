@@ -9,6 +9,14 @@ import com.example.warranty.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    Optional<UserEntity> findByEmail(String email);
-    boolean existsByEmail(String email);
+    Optional<UserEntity> findByEmailIgnoreCase(String email);
+    boolean existsByEmailIgnoreCase(String email);
+
+    default Optional<UserEntity> findByEmail(String email) {
+        return findByEmailIgnoreCase(email == null ? null : email.trim());
+    }
+
+    default boolean existsByEmail(String email) {
+        return existsByEmailIgnoreCase(email == null ? null : email.trim());
+    }
 }

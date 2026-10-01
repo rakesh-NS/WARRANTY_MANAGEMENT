@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -41,6 +42,12 @@ public class ProductEntity {
     @NotNull
     private BigDecimal price;
 
+    private String category;
+    private String sellerName;
+    private String invoiceNumber;
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
@@ -50,7 +57,7 @@ public class ProductEntity {
 
     public ProductEntity() {}
 
-    public ProductEntity(Long id, String productName, String brand, String model, String serialNumber, LocalDate purchaseDate, BigDecimal price, UserEntity user, WarrantyEntity warranty) {
+    public ProductEntity(Long id, String productName, String brand, String model, String serialNumber, LocalDate purchaseDate, BigDecimal price, String category, String sellerName, String invoiceNumber, String description, UserEntity user, WarrantyEntity warranty) {
         this.id = id;
         this.productName = productName;
         this.brand = brand;
@@ -58,6 +65,10 @@ public class ProductEntity {
         this.serialNumber = serialNumber;
         this.purchaseDate = purchaseDate;
         this.price = price;
+        this.category = category;
+        this.sellerName = sellerName;
+        this.invoiceNumber = invoiceNumber;
+        this.description = description;
         this.user = user;
         this.warranty = warranty;
     }
@@ -122,6 +133,38 @@ public class ProductEntity {
         this.price = price;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public UserEntity getUser() {
         return user;
     }
@@ -146,6 +189,10 @@ public class ProductEntity {
         private String serialNumber;
         private LocalDate purchaseDate;
         private BigDecimal price;
+        private String category;
+        private String sellerName;
+        private String invoiceNumber;
+        private String description;
         private UserEntity user;
         private WarrantyEntity warranty;
 
@@ -184,6 +231,26 @@ public class ProductEntity {
             return this;
         }
 
+        public Builder category(String category) {
+            this.category = category;
+            return this;
+        }
+
+        public Builder sellerName(String sellerName) {
+            this.sellerName = sellerName;
+            return this;
+        }
+
+        public Builder invoiceNumber(String invoiceNumber) {
+            this.invoiceNumber = invoiceNumber;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
         public Builder user(UserEntity user) {
             this.user = user;
             return this;
@@ -195,7 +262,7 @@ public class ProductEntity {
         }
 
         public ProductEntity build() {
-            return new ProductEntity(id, productName, brand, model, serialNumber, purchaseDate, price, user, warranty);
+            return new ProductEntity(id, productName, brand, model, serialNumber, purchaseDate, price, category, sellerName, invoiceNumber, description, user, warranty);
         }
     }
 }
